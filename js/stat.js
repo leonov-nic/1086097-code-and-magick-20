@@ -22,7 +22,7 @@ var getMaxElement = function (time) {
   var MaxElement = time[0];
 
   for (var i = 0; i < time.length; i++) {
-    if (time[i] > time[0]) {
+    if (time[i] > MaxElement) {
       MaxElement = time[i];
     }
   }
