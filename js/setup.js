@@ -54,36 +54,42 @@ var getRandElement = function (array) {
 };
 
 var getWizard = function (names, coatColor, eyasColor) {
+  var wizard = {
+    wizardName: getRandElement(names).name + ' ' + getRandElement(names).family,
+    wizardCoatColor: getRandElement(coatColor),
+    wizardEyasColor: getRandElement(eyasColor)
+  };
+  return wizard;
+};
+
+var renderWizard = function (names, coatColor, eyasColor) {
   var newWizardElement = similarWizardTemplate.cloneNode(true);
 
-  newWizardElement.querySelector('.setup-similar-label').textContent = getRandElement(names).name + ' ' + getRandElement(names).family;
-  newWizardElement.querySelector('.wizard-coat').style.fill = getRandElement(coatColor);
-  newWizardElement.querySelector('.wizard-eyes').style.fill = getRandElement(eyasColor);
+  newWizardElement.querySelector('.setup-similar-label').textContent = getWizard(names, coatColor, eyasColor).wizardName;
+  newWizardElement.querySelector('.wizard-coat').style.fill = getWizard(names, coatColor, eyasColor).wizardCoatColor;
+  newWizardElement.querySelector('.wizard-eyes').style.fill = getWizard(names, coatColor, eyasColor).wizardName;
 
   return newWizardElement;
 };
+
+var fragment = document.createDocumentFragment();
+
+for (var i = 0; i < numberOfWizard; i++) {
+  fragment.appendChild(renderWizard(wizards, COAT_COLOR, EYAS_COLOR));
+  similarList.appendChild(fragment);
+}
+
+document.querySelector('.setup-similar').classList.remove('hidden');
 
 // var getWizards = function (arg) {
 
 //   var newwizards = [];
 
 //   for (var i = 0; i < arg; i++) {
-//     newwizards.push(getWizard(wizards, COAT_COLOR, EYAS_COLOR)[i]);
+//     newwizards.push(renderWizard(wizards, COAT_COLOR, EYAS_COLOR));
 //   }
 //   return newwizards;
 // };
 
-// var fragment = document.createDocumentFragment();
-// fragment.appendChild(getWizards(numberOfWizard));
-// similarList.appendChild(fragment);
-
-// document.querySelector('.setup-similar').classList.remove('hidden');
-
-var fragment = document.createDocumentFragment();
-
-for (var i = 0; i < numberOfWizard; i++) {
-  fragment.appendChild(getWizard(wizards, COAT_COLOR, EYAS_COLOR));
-}
-
-similarList.appendChild(fragment);
-document.querySelector('.setup-similar').classList.remove('hidden');
+//   similarList.appendChild(getWizards(4));
+//   document.querySelector('.setup-similar').classList.remove('hidden');
