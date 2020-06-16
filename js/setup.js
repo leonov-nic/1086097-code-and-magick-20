@@ -10,8 +10,8 @@ var similarWizardTemplate = document.querySelector('#similar-wizard-template')
 
 var numberOfWizard = 4;
 
-var COAT_COLOR = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
-var EYAS_COLOR = ['black', 'red', 'blue', 'yellow', 'green'];
+var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
+var EYAS_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 
 var wizards = [
   {
@@ -62,12 +62,12 @@ var getWizard = function (names, coatColor, eyasColor) {
   return wizard;
 };
 
-var renderWizard = function (names, coatColor, eyasColor) {
+var renderWizard = function (wizard) {
   var newWizardElement = similarWizardTemplate.cloneNode(true);
 
-  newWizardElement.querySelector('.setup-similar-label').textContent = getWizard(names, coatColor, eyasColor).wizardName;
-  newWizardElement.querySelector('.wizard-coat').style.fill = getWizard(names, coatColor, eyasColor).wizardCoatColor;
-  newWizardElement.querySelector('.wizard-eyes').style.fill = getWizard(names, coatColor, eyasColor).wizardName;
+  newWizardElement.querySelector('.setup-similar-label').textContent = wizard.wizardName;
+  newWizardElement.querySelector('.wizard-coat').style.fill = wizard.wizardCoatColor;
+  newWizardElement.querySelector('.wizard-eyes').style.fill = wizard.wizardEyasColor;
 
   return newWizardElement;
 };
@@ -75,21 +75,8 @@ var renderWizard = function (names, coatColor, eyasColor) {
 var fragment = document.createDocumentFragment();
 
 for (var i = 0; i < numberOfWizard; i++) {
-  fragment.appendChild(renderWizard(wizards, COAT_COLOR, EYAS_COLOR));
+  fragment.appendChild(renderWizard(getWizard(wizards, COAT_COLORS, EYAS_COLORS)));
   similarList.appendChild(fragment);
 }
 
 document.querySelector('.setup-similar').classList.remove('hidden');
-
-// var getWizards = function (arg) {
-
-//   var newwizards = [];
-
-//   for (var i = 0; i < arg; i++) {
-//     newwizards.push(renderWizard(wizards, COAT_COLOR, EYAS_COLOR));
-//   }
-//   return newwizards;
-// };
-
-//   similarList.appendChild(getWizards(4));
-//   document.querySelector('.setup-similar').classList.remove('hidden');
