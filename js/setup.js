@@ -124,24 +124,66 @@ setupClose.addEventListener('keydown', function (evt) {
   }
 });
 
-// var setupField = document.querySelector('.setup-user-name');
+var userNameField = document.querySelector('.setup-user-name');
 var wizardCoat = document.querySelector('.wizard-coat');
 var wizardEyes = document.querySelector('.wizard-eyes');
 var wizardFireball = document.querySelector('.setup-fireball-wrap');
+var coatColorField = document.querySelector('.setup-coat-color');
+var eyesColorField = document.querySelector('.setup-eyes-color');
+var fireballColorField = document.querySelector('.setup-fireball-color');
 
 var getRandomColor = function (array) {
   var newColor = getRandElement(array);
   return newColor;
 };
 
+// var getNewColor = function (array, namefield) {
+//   var newColor = getRandElement(array);
+//   namefield.value = newColor;
+// };
+
 wizardCoat.addEventListener('click', function () {
-  wizardCoat.style.fill = getRandomColor(COAT_COLORS);
+  var newCoatColor = getRandomColor(COAT_COLORS);
+  coatColorField.value = newCoatColor;
+  wizardCoat.style.fill = newCoatColor;
+
 });
 
 wizardEyes.addEventListener('click', function () {
-  wizardEyes.style.fill = getRandomColor(EYAS_COLORS);
+  var newEyesColor = getRandomColor(EYAS_COLORS);
+  wizardEyes.style.fill = newEyesColor;
+  eyesColorField.value = newEyesColor;
 });
 
 wizardFireball.addEventListener('click', function () {
-  wizardFireball.style.background = getRandomColor(FIREBALL_COLORS);
+  var newFireballColor = getRandomColor(FIREBALL_COLORS);
+  fireballColorField.style.background = newFireballColor;
+  fireballColorField.value = newFireballColor;
+});
+
+userNameField.addEventListener('invalid', function () {
+  if (userNameField.validity.tooShort) {
+    userNameField.setCustomValidity('Имя должно состоять минимум из 2-х символов');
+  } else if (userNameField.validity.tooLong) {
+    userNameField.setCustomValidity('Имя не должно превышать 25-ти символов');
+  } else if (userNameField.validity.valueMissing) {
+    userNameField.setCustomValidity('Обязательное поле');
+  } else {
+    userNameField.setCustomValidity('');
+  }
+});
+
+var MIN_NAME_LENGTH = 2;
+var MAX_NAME_LENGTH = 25;
+
+userNameField.addEventListener('input', function () {
+  var valueLength = userNameField.value.length;
+
+  if (valueLength < MIN_NAME_LENGTH) {
+    userNameField.setCustomValidity('Ещё ' + (MIN_NAME_LENGTH - valueLength) + ' симв.');
+  } else if (valueLength > MAX_NAME_LENGTH) {
+    userNameField.setCustomValidity('Удалите лишние ' + (valueLength - MAX_NAME_LENGTH) + ' симв.');
+  } else {
+    userNameField.setCustomValidity('');
+  }
 });
