@@ -137,11 +137,6 @@ var getRandomColor = function (array) {
   return newColor;
 };
 
-// var getNewColor = function (array, namefield) {
-//   var newColor = getRandElement(array);
-//   namefield.value = newColor;
-// };
-
 wizardCoat.addEventListener('click', function () {
   var newCoatColor = getRandomColor(COAT_COLORS);
   coatColorField.value = newCoatColor;
@@ -157,7 +152,7 @@ wizardEyes.addEventListener('click', function () {
 
 wizardFireball.addEventListener('click', function () {
   var newFireballColor = getRandomColor(FIREBALL_COLORS);
-  fireballColorField.style.background = newFireballColor;
+  wizardFireball.style.background = newFireballColor;
   fireballColorField.value = newFireballColor;
 });
 
