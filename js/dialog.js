@@ -12,6 +12,8 @@
 
   var openPopup = function () {
     setup.classList.remove('hidden');
+    setup.style.left = '50%';
+    setup.style.top = '80px';
     document.addEventListener('keydown', onPopupEscPress);
   };
 
