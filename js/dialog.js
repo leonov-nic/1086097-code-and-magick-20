@@ -41,6 +41,7 @@
 
   var onLoad = function () {
     closePopup();
+    // console.log('форма отправлена');
   };
 
   var onError = function (errorMessage) {
@@ -53,16 +54,14 @@
 
     node.textContent = errorMessage;
     document.body.insertAdjacentElement('afterbegin', node);
+    // console.log('форма НЕ отправлена');
   };
 
-  form.addEventListener('submit', function (evt) {
+  var onSubmit = function (evt) {
     window.backend.save(new FormData(form), onLoad, onError);
-
     evt.preventDefault();
-  });
+  };
 
-  // window.dialog = {
-  //   closePopup: closePopup
-  // };
+  form.addEventListener('submit', onSubmit);
 
 })();
