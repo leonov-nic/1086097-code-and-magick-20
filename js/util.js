@@ -22,6 +22,11 @@
       }
     },
 
+    getRandomElementArray: function (array) {
+      var rand = Math.floor(Math.random() * array.length);
+      return array[rand];
+    },
+
     colorize: function (element, elementField, arrayColors) {
       element.addEventListener('click', function () {
         var color = getRandElement(arrayColors);
