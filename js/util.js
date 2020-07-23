@@ -33,10 +33,13 @@
         if (element.tagName.toLowerCase() === 'div') {
           element.style.background = color;
           elementField.value = color;
+
         } else {
           element.style.fill = color;
           elementField.value = color;
         }
+
+        window.setup.updateWizards();
       });
     }
 

@@ -40,7 +40,9 @@
   });
 
   var onLoad = function () {
-    closePopup();
+    var setupLoad = document.querySelector('.setup');
+    setupLoad.classList.add('hidden');
+    // closePopup();
     // console.log('форма отправлена');
   };
 
