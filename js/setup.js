@@ -132,6 +132,7 @@
   window.util.colorize(wizardFireball, fireballColorField, FIREBALL_COLORS);
   window.util.colorize(wizardCoat, coatColorField, COAT_COLORS);
   window.util.colorize(wizardEyes, eyesColorField, EYAS_COLORS);
+
   var exampleWizardCoat = document.querySelector('.wizard-coat');
   var exampleWizardEyes = document.querySelector('.wizard-eyes');
 
@@ -139,20 +140,9 @@
 
   var updateWizards = function () {
 
-    var similarWizars = document.querySelectorAll('.setup-similar-item');
-
-
-    console.log(exampleWizardCoat);
-
-    // if (similarWizars) {
-    //   for (var j = 0; j < similarWizars.length; j++) {
-    //     similarWizars[j].remove();
-    //   }
-    // }
-
     var sameCoatAndEyesWizards = wizards.filter(function (it) {
       return it.colorCoat === exampleWizardCoat.style.fill && it.colorEyes === exampleWizardEyes.style.fill;
-    })
+    });
 
     var sameCoatWizards = wizards.filter(function (it) {
       return it.colorCoat === exampleWizardCoat.style.fill;
@@ -171,55 +161,45 @@
       return filteredWizards.indexOf(it) === i;
     });
 
-    // console.log(filteredWizards);
+    var rankedWizards = uniqueWizards.slice().sort(function (left, right) {
+      var rankDiff = getRank(right) - getRank(left);
+      if (rankDiff === 0) {
+        rankDiff = namesComparator(left.name, right.name);
+      }
+      return rankDiff;
+    });
 
-    render(filteredWizards);
+    // rankedWizards = rankedWizards.slice(0, 4);
+
+    render(rankedWizards);
   };
-    // render(wizards.sort(function (left, right) {
-    //   var rankDiff = getRank(right) - getRank(left);
-    //   if (rankDiff === 0) {
-    //     rankDiff = namesComparator(left.name, right.name);
-    //   }
-    //   return rankDiff;
-    // }));
 
   var onload = function (data) {
-
     wizards = data;
     updateWizards();
-
-    // wizardCoatColor = data.map(function (it) {
-    //   return it.colorCoat;
-    // });
-    // wizardEyesColor = data.map(function (it) {
-    //   return it.colorEyes;
-    // });
-
-
   };
 
-  // var getRank = function (wizard) {
-  //   var rank = 0;
+  var getRank = function (wizard) {
+    var rank = 0;
 
-  //   if (wizard.colorCoat === coatColor) {
-  //     rank += 2;
-  //   }
-  //   if (wizard.colorEyes === eyesColor) {
-  //     rank += 1;
-  //   }
+    if (wizard.colorCoat === exampleWizardCoat.style.fill) {
+      rank += 2;
+    }
+    if (wizard.colorEyes === exampleWizardEyes.style.fill) {
+      rank += 1;
+    }
+    return rank;
+  };
 
-  //   return rank;
-  // }
-
-  // var namesComparator = function (left, right) {
-  //   if (left > right) {
-  //     return 1;
-  //   } else if (left < right) {
-  //     return -1;
-  //   } else {
-  //     return 0;
-  //   }
-  // }
+  var namesComparator = function (left, right) {
+    if (left > right) {
+      return 1;
+    } else if (left < right) {
+      return -1;
+    } else {
+      return 0;
+    }
+  };
 
   var onError = function (errorMessage) {
     var node = document.createElement('div');

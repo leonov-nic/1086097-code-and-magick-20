@@ -7,6 +7,22 @@
     return item;
   };
 
+  var DEBOUNCE_INTERVAL = 3000;
+
+  var debounce = function (cb) {
+    var lastTimeout = null;
+
+    return function () {
+      var parameters = arguments;
+      if (lastTimeout) {
+        window.clearTimeout(lastTimeout);
+      }
+      lastTimeout = window.setTimeout (function() {
+        cb.apply(null, parameters);
+      }, DEBOUNCE_INTERVAL);
+    };
+  };
+
   window.util = {
 
     isEscPress: function (evt, action) {
@@ -37,9 +53,8 @@
         } else {
           element.style.fill = color;
           elementField.value = color;
+          debounce(window.setup.updateWizards());
         }
-
-        window.setup.updateWizards();
       });
     }
 
