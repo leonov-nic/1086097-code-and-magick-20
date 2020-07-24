@@ -111,10 +111,9 @@
 
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < numberOfWizard; i++) {
-      var randomWizard = window.util.getRandomElementArray(wizards);
-      fragment.appendChild(renderWizard(randomWizard));
+      fragment.appendChild(renderWizard(wizards[i]));
     }
-
+    similarList.innerHTML = '';
     similarList.appendChild(fragment);
     document.querySelector('.setup-similar').classList.remove('hidden');
     // setup.classList.add('hidden');
@@ -145,11 +144,11 @@
 
     console.log(exampleWizardCoat);
 
-    if (similarWizars) {
-      for (var j = 0; j < similarWizars.length; j++) {
-        similarWizars[j].remove();
-      }
-    }
+    // if (similarWizars) {
+    //   for (var j = 0; j < similarWizars.length; j++) {
+    //     similarWizars[j].remove();
+    //   }
+    // }
 
     var sameCoatAndEyesWizards = wizards.filter(function (it) {
       return it.colorCoat === exampleWizardCoat.style.fill && it.colorEyes === exampleWizardEyes.style.fill;
