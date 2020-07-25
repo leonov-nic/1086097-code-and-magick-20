@@ -128,10 +128,48 @@
   var eyesColorField = document.querySelector('.setup-eyes-color');
   var fireballColorField = document.querySelector('.setup-fireball-color');
 
+
+    var colorize = function (element, elementField, arrayColors) {
+      element.addEventListener('click', function () {
+        var color = window.util.getRandElement(arrayColors);
+        if (element.tagName.toLowerCase() === 'div') {
+          element.style.background = color;
+          elementField.value = color;
+
+        } else {
+          element.style.fill = color;
+          elementField.value = color;
+          debounce(updateWizards);
+        }
+      });
+    }
+
+
+  var DEBOUNCE_INTERVAL = 3000;
+
+  var debounce = function (cb) {
+    var lastTimeout = null;
+
+    return function () {
+      var parameters = arguments;
+      if (lastTimeout) {
+        window.clearTimeout(lastTimeout);
+      }
+      lastTimeout = window.setTimeout (function() {
+        cb.apply(null, parameters);
+      }, DEBOUNCE_INTERVAL);
+    };
+  };
+
+
+
+
   // colorize.js
-  window.util.colorize(wizardFireball, fireballColorField, FIREBALL_COLORS);
-  window.util.colorize(wizardCoat, coatColorField, COAT_COLORS);
-  window.util.colorize(wizardEyes, eyesColorField, EYAS_COLORS);
+
+
+  colorize(wizardFireball, fireballColorField, FIREBALL_COLORS);
+  colorize(wizardCoat, coatColorField, COAT_COLORS);
+  colorize(wizardEyes, eyesColorField, EYAS_COLORS);
 
   var exampleWizardCoat = document.querySelector('.wizard-coat');
   var exampleWizardEyes = document.querySelector('.wizard-eyes');
@@ -176,7 +214,8 @@
 
   var onload = function (data) {
     wizards = data;
-    updateWizards();
+    // window.utils.debounce(updateWizards);
+    debounce(updateWizards);
   };
 
   var getRank = function (wizard) {
