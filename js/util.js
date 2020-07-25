@@ -2,7 +2,7 @@
 
 (function () {
 
-  var DEBOUNCE_INTERVAL = 3000;
+  var DEBOUNCE_INTERVAL = 1000;
 
   window.util = {
 

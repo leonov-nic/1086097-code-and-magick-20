@@ -140,7 +140,7 @@
       } else {
         element.style.fill = color;
         elementField.value = color;
-        updateWizards();
+        window.util.debounce(updateWizards)();
       }
     });
   };
